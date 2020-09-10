@@ -33,7 +33,7 @@
     }
   ],
   "globalStyle": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "write",
     "navigationBarTitleText": "YOURS-Gallery",
     "navigationBarBackgroundColor": "#000"
   },
