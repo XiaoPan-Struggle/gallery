@@ -2,19 +2,26 @@
 <view>
 
   <view>
-    <uni-segmented-control :current="current" :values="items.map(v => v.title)" @clickItem="onClickItem" style-type="text" active-color="#d4237a"></uni-segmented-control>
-    <view class="content">
-      <view v-if="current === 0">
-        <homereCommend></homereCommend>
+    <view class="home_tab">
+      <view class="home_tab_title">
+        <view class="title_inner">
+          <uni-segmented-control :current="current" :values="items.map(v => v.title)" @clickItem="onClickItem" style-type="text" active-color="#d4237a"></uni-segmented-control>
+        </view>
+        <view class="iconfont iconsearch"></view>
       </view>
-      <view v-if="current === 1">
-        <homeCategory></homeCategory>
-      </view>
-      <view v-if="current === 2">
-        <homeNew></homeNew>
-      </view>
-      <view v-if="current === 3">
-        <homeAlbum></homeAlbum>
+      <view class="content">
+        <view v-if="current === 0">
+          <homereCommend></homereCommend>
+        </view>
+        <view v-if="current === 1">
+          <homeCategory></homeCategory>
+        </view>
+        <view v-if="current === 2">
+          <homeNew></homeNew>
+        </view>
+        <view v-if="current === 3">
+          <homeAlbum></homeAlbum>
+        </view>
       </view>
     </view>
   </view>
@@ -65,4 +72,24 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.home_tab {
+  .home_tab_title {
+    position: relative;
+
+    .title_inner {
+      width: 60%;
+      margin: 0 auto;
+    }
+
+    .iconsearch {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 5%;
+    }
+  }
+
+  .content {}
+}
+</style>
