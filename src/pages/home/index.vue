@@ -1,7 +1,7 @@
 <template>
 <view>
   首页
-  <uni-badge text="1"></uni-badge>
+  <uni-badge text="1" type="success"></uni-badge>
 </view>
 </template>
 
@@ -11,8 +11,8 @@ import {
 } from '@dcloudio/uni-ui'
 export default {
   components: {
-    uniBadge
-  },
+    uniBadge,
+  }
 }
 </script>
 
