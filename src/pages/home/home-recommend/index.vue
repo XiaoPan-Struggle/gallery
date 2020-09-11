@@ -25,6 +25,18 @@
       </view>
     </view>
   </view>
+
+  <!-- 热门 -->
+  <view class="hots_warp">
+    <view class="hots_title">
+      <text> 热门 </text>
+    </view>
+    <view class="hots_content">
+      <view class="hot_item" v-for="item in verticals" :key="item.id">
+        <image mode="widthFix" :src="item.thumb"></image>
+      </view>
+    </view>
+  </view>
 </view>
 </template>
 
@@ -37,6 +49,8 @@ export default {
       recommends: [],
       // 月份
       months: {},
+      // 热门
+      verticals: [],
     }
   },
   mounted() {
@@ -58,6 +72,8 @@ export default {
       // 月
       this.months.MM = moment(this.months.stime).format('MM')
       this.months.DD = moment(this.months.stime).format('DD')
+      // 热门
+      this.verticals = result.res.vertical
       console.log(result)
     })
   },
@@ -117,6 +133,32 @@ export default {
     .monthes_item {
       width: 33.3%;
       border: 5rpx solid #fff;
+    }
+  }
+}
+
+// 热门
+.hots_warp {
+  .hots_title {
+    padding: 20rpx;
+
+    text {
+      padding: 0 10rpx;
+      border-left: 5rpx solid $color;
+      font-size: 34rpx;
+      font-weight: 600;
+    }
+  }
+
+  .hots_content {
+    display: flex;
+    flex-wrap: wrap;
+
+    .hot_item {
+      width: 50%;
+      border: 5rpx solid #fff;
+
+      img {}
     }
   }
 }
