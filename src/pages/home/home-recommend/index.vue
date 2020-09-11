@@ -144,7 +144,7 @@ export default {
 
     text {
       padding: 0 10rpx;
-      border-left: 5rpx solid $color;
+      border-left: 10rpx solid $color;
       font-size: 34rpx;
       font-weight: 600;
     }
@@ -156,7 +156,7 @@ export default {
 
     .hot_item {
       width: 50%;
-      border: 5rpx solid #fff;
+      border: 10rpx solid #fff;
 
       img {}
     }
