@@ -51,12 +51,8 @@ export default {
       months: {},
       // 热门
       verticals: [],
-    }
-  },
-  mounted() {
-    this.request({
-      url: 'http://157.122.54.189:9088/image/v3/homepage/vertical',
-      data: {
+      // 请求参数
+      params: {
         // 获取多少条数据
         limit: 30,
         // 关键字
@@ -64,23 +60,56 @@ export default {
         // 跳过几条
         skip: 0,
       },
-    }).then((result) => {
-      // 推荐
-      this.recommends = result.res.homepage[1].items
-      // 月份
-      this.months = result.res.homepage[2]
-      // 月
-      this.months.MM = moment(this.months.stime).format('MM')
-      this.months.DD = moment(this.months.stime).format('DD')
-      // 热门
-      this.verticals = result.res.vertical
-      console.log(result)
-    })
+      // 有无下一页
+      hasMore: true,
+    }
+  },
+  mounted() {
+    this.getList()
   },
   methods: {
+    // 获取接口数据
+    getList() {
+      this.request({
+        url: 'http://157.122.54.189:9088/image/v3/homepage/vertical',
+        data: this.params,
+      }).then((result) => {
+        // 第一次请求才触发
+        if (this.recommends.length === 0) {
+          // 推荐
+          this.recommends = result.res.homepage[1].items
+          // 月份
+          this.months = result.res.homepage[2]
+          // 月
+          this.months.MM = moment(this.months.stime).format('MM')
+          this.months.DD = moment(this.months.stime).format('DD')
+        }
+        // 判断有无下一页
+        if (result.res.vertical.length === 0) {
+          this.hasMore = false
+          return
+        }
+        // 热门  数据拼接
+        this.verticals = [...this.verticals, ...result.res.vertical]
+        console.log(result)
+      })
+    },
     // 滚动条触底事件
     handleToLower() {
-      console.log('下一页')
+      /* 
+        1. 修改参数 skip += limit
+        2. 发送请求
+        3. 数据叠加 hots
+       */
+      if (this.hasMore) {
+        this.params.skip += this.params.limit
+        this.getList()
+      } else {
+        uni.showToast({
+          title: '到底啦!',
+          icon: 'none',
+        })
+      }
     },
   },
 }
