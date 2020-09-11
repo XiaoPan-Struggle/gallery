@@ -1,5 +1,5 @@
 <template>
-<view v-if="recommends.length > 0">
+<scroll-view class="recommends_view" scroll-y v-if="recommends.length > 0">
   <!-- 推荐 -->
   <view class="recommend_warp">
     <view class="recommend_item" v-for="item in recommends" :key="item.id">
@@ -37,7 +37,7 @@
       </view>
     </view>
   </view>
-</view>
+</scroll-view>
 </template>
 
 <script>
@@ -81,6 +81,11 @@ export default {
 </script>
 
 <style lang="scss">
+.recommends_view {
+  // 视口-头部tab高
+  height: calc(100vh - 36px);
+}
+
 // 推荐
 .recommend_warp {
   display: flex;
