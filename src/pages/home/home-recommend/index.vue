@@ -1,5 +1,5 @@
 <template>
-<scroll-view class="recommends_view" scroll-y v-if="recommends.length > 0">
+<scroll-view class="recommends_view" @scrolltolower="handleToLower" scroll-y v-if="recommends.length > 0">
   <!-- 推荐 -->
   <view class="recommend_warp">
     <view class="recommend_item" v-for="item in recommends" :key="item.id">
@@ -76,6 +76,12 @@ export default {
       this.verticals = result.res.vertical
       console.log(result)
     })
+  },
+  methods: {
+    // 滚动条触底事件
+    handleToLower() {
+      console.log('下一页')
+    },
   },
 }
 </script>
