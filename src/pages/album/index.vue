@@ -46,12 +46,25 @@ export default {
       // 专辑信息
       album: {},
       // 专辑列表图
-      wallpaper: []
+      wallpaper: [],
+      // 是否还有下一页
+      hasMore: true
     }
   },
   onLoad(options) {
     this.id = options.id
     this.getList()
+  },
+  // 页面触底事件
+  onReachBottom() {
+    if (this.hasMore) {
+      // 修改参数
+      this.params.skip += this.params.limit
+      // 发送请求
+      this.getList()
+    }
+
+    console.log('meile')
   },
   methods: {
     getList() {
@@ -60,9 +73,19 @@ export default {
           data: this.params
         })
         .then(result => {
-          this.album = result.res.album
-          this.wallpaper = result.res.wallpaper
-          console.log(this.wallpaper.length)
+          if (Object.keys(this.album).length === 0) {
+            this.album = result.res.album
+          }
+          // 没有下一页
+          if (result.res.wallpaper.length === 0) {
+            this.hasMore = false,
+              uni.showToast({
+                title: '极限啦！',
+                icon: 'none'
+              })
+            return
+          }
+          this.wallpaper = [...this.wallpaper, ...result.res.wallpaper]
         })
     }
   }
@@ -137,11 +160,7 @@ export default {
 
   .album_item {
     width: 33.3%;
-    border: 1rpx solid #fff;
-
-    iamge {
-      width: 100%;
-    }
+    border: 3rpx solid #fff;
   }
 }
 </style>

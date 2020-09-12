@@ -71,7 +71,11 @@ export default {
           }
           // 没有下一页
           if (result.res.album.length === 0) {
-            this.hasMore = false
+            this.hasMore = false,
+              uni.showToast({
+                title: '极限啦！',
+                icon: 'none'
+              })
             return
           }
           // 数据拼接 es6
@@ -85,11 +89,6 @@ export default {
         this.params.skip += this.params.limit
         // 发送请求
         this.getList()
-      } else {
-        uni.showToast({
-          title: '极限啦！',
-          icon: 'none'
-        })
       }
     }
   }
