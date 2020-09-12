@@ -16,7 +16,11 @@ export default {
         first: 1
       },
       // 接收页面参数id值
-      id: -1
+      id: -1,
+      // 专辑信息
+      album: {},
+      // 专辑列表图
+      wallpaper: []
     }
   },
   onLoad(options) {
@@ -31,6 +35,8 @@ export default {
           data: this.params
         })
         .then(result => {
+          this.album = result.res.album
+          this.wallpaper = result.res.wallpaper
           console.log(result)
         })
     }
