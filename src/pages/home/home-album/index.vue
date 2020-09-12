@@ -19,7 +19,7 @@
 
   <!-- 专辑列表 -->
   <view class="album_list">
-    <navigator class="album_item" v-for="item in album" :key="item.id" url="/pages/album/index">
+    <navigator class="album_item" v-for="item in album" :key="item.id" :url="`/pages/album/index?id=${item.id}`">
       <view class="album_img">
         <image mode="aspectFill" :src="item.cover"></image>
       </view>
