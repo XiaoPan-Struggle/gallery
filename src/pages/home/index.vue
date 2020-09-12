@@ -66,6 +66,10 @@ export default {
     onClickItem(e) {
       if (this.current !== e.currentIndex) {
         this.current = e.currentIndex;
+        console.log(this.items)
+        uni.setNavigationBarTitle({
+          title: this.items[e.currentIndex].title
+        })
       }
     }
   }
