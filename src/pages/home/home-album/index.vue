@@ -91,7 +91,6 @@ export default {
           icon: 'none'
         })
       }
-      console.log(this.hasMore)
     }
   }
 }
