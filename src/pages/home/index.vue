@@ -93,7 +93,5 @@ export default {
       right: 5%;
     }
   }
-
-  .content {}
 }
 </style>

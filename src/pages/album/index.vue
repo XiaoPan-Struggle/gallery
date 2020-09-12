@@ -20,6 +20,12 @@
     </view>
   </view>
 
+  <!--专辑图列表-->
+  <view class="album_list">
+    <view class="album_item" v-for="item in wallpaper" :key="item.id">
+      <image mode="widthFix" :src="item.thumb+item.rule.replace('$<Height>',360)"></image>
+    </view>
+  </view>
 </view>
 </template>
 
@@ -44,8 +50,7 @@ export default {
     }
   },
   onLoad(options) {
-    // this.id = options.id
-    this.id = '5e59075ae7bce73965512bd6'
+    this.id = options.id
     this.getList()
   },
   methods: {
@@ -57,7 +62,7 @@ export default {
         .then(result => {
           this.album = result.res.album
           this.wallpaper = result.res.wallpaper
-          console.log(result)
+          console.log(this.wallpaper.length)
         })
     }
   }
@@ -120,6 +125,23 @@ export default {
     }
   }
 
-  .album_author_desc {}
+  .album_author_desc {
+    padding-bottom: 30rpx;
+  }
+}
+
+// 专辑图片
+.album_list {
+  display: flex;
+  flex-wrap: wrap;
+
+  .album_item {
+    width: 33.3%;
+    border: 1rpx solid #fff;
+
+    iamge {
+      width: 100%;
+    }
+  }
 }
 </style>
