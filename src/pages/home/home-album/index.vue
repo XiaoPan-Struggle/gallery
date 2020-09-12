@@ -1,5 +1,5 @@
 <template>
-<view>
+<scroll-view class="album_view" @scrolltolower="albumToLower" scroll-y>
   <!-- 轮播图 
     1.自动轮播 autoplay
     2.指示器 indicator-dots
@@ -32,7 +32,7 @@
       </view>
     </view>
   </view>
-</view>
+</scroll-view>
 </template>
 
 <script>
@@ -48,7 +48,9 @@ export default {
       // 轮播图数据
       banner: [],
       // 专辑列表数据
-      album: []
+      album: [],
+      // 是否还有下一页
+      hasMore: true
     }
   },
   mounted() {
@@ -63,17 +65,44 @@ export default {
           data: this.params
         })
         .then(result => {
-          console.log(result)
-          this.banner = result.res.banner
-          this.album = result.res.album
-          console.log(this.banner, this.album)
+          // 轮播图数据只需要接收一次
+          if (this.banner.length === 0) {
+            this.banner = result.res.banner
+          }
+          // 没有下一页
+          if (result.res.album.length === 0) {
+            this.hasMore = false
+            return
+          }
+          // 数据拼接 es6
+          this.album = [...this.album, ...result.res.album]
         })
+    },
+    // 触底事件
+    albumToLower() {
+      if (this.hasMore) {
+        // 修改参数
+        this.params.skip += this.params.limit
+        // 发送请求
+        this.getList()
+      } else {
+        uni.showToast({
+          title: '极限啦！',
+          icon: 'none'
+        })
+      }
+      console.log(this.hasMore)
     }
   }
 }
 </script>
 
 <style lang="scss">
+.album_view {
+  // 视口-头部tab高
+  height: calc(100vh - 36px);
+}
+
 // 轮播图
 .album_swiper {
   swiper {

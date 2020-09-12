@@ -94,7 +94,6 @@ export default {
         }
         // 热门  数据拼接
         this.verticals = [...this.verticals, ...result.res.vertical]
-        console.log(result)
       })
     },
     // 滚动条触底事件
@@ -109,7 +108,7 @@ export default {
         this.getList()
       } else {
         uni.showToast({
-          title: '到底啦!',
+          title: '极限啦！',
           icon: 'none',
         })
       }
@@ -200,8 +199,6 @@ export default {
     .hot_item {
       width: 50%;
       border: 10rpx solid #fff;
-
-      img {}
     }
   }
 }
