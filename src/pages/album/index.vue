@@ -9,6 +9,17 @@
     </view>
   </view>
 
+  <!--专辑作者-->
+  <view class="album_author">
+    <view class="album_author_info">
+      <image mode="widthFix" :src="album.user.avatar"></image>
+      <view class="author_name">{{album.user.name}}</view>
+    </view>
+    <view class="album_author_desc">
+      <text>{{album.desc}}</text>
+    </view>
+  </view>
+
 </view>
 </template>
 
@@ -34,9 +45,8 @@ export default {
   },
   onLoad(options) {
     // this.id = options.id
-    this.id = '5e22780fe7bce739db126f29'
+    this.id = '5e59075ae7bce73965512bd6'
     this.getList()
-    console.log(options.id)
   },
   methods: {
     getList() {
@@ -55,6 +65,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// 专辑背景
 .album_bg {
   position: relative;
 
@@ -84,7 +95,31 @@ export default {
       font-size: 24rpx;
       border-radius: 10rpx;
       background-color: $color;
+      font-weight: 600;
     }
   }
+}
+
+// 专辑作者
+.album_author {
+  padding: 20rpx;
+
+  .album_author_info {
+    display: flex;
+    padding: 10rpx 0;
+
+    image {
+      width: 50rpx;
+    }
+
+    .author_name {
+      padding-left: 20rpx;
+      font-size: 30rpx;
+      font-weight: 600;
+      color: #333;
+    }
+  }
+
+  .album_author_desc {}
 }
 </style>
