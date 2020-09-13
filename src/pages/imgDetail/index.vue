@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   data() {
     return {
@@ -86,20 +87,16 @@ export default {
 .user_rank {
   display: flex;
   text-align: center;
-  border-bottom: 5rpx solid #f9f9f9;
+  border-bottom: 5rpx solid #eeeeee;
 
   .rank {
     flex: 1;
     padding: 20rpx 0;
-
-    text.icondianzan {}
   }
 
   .user_collect {
     flex: 1;
     padding: 20rpx 0;
-
-    text.iconshoucang {}
   }
 }
 </style>
