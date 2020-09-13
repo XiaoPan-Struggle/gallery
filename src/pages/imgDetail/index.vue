@@ -37,7 +37,13 @@ moment.locale("zh-cn")
 export default {
   data() {
     return {
-      imgDetail: {}
+      imgDetail: {},
+      // 专辑数据
+      album: [],
+      // 最新评论
+      comment: [],
+      // 热门评论
+      hot: []
     }
   },
   onLoad() {
@@ -50,7 +56,21 @@ export default {
     this.imgDetail.newThumb = this.imgDetail.thumb + this.imgDetail.rule.replace('$<Height>', 360)
     // 时间数据格式处理
     this.imgDetail.cnTime = moment(this.imgDetail.atime * 1000).fromNow()
-    console.log(this.imgDetail)
+    // 获取评论数据
+    this.getComments(this.imgDetail.id)
+  },
+  methods: {
+    getComments(id) {
+      this.request({
+          url: `http://157.122.54.189:9088/image/v2/wallpaper/wallpaper/${id}/comment`
+        })
+        .then(result => {
+          this.album = result.res.album;
+          this.comment = result.res.comment;
+          this.hot = result.res.hot;
+          console.log(result)
+        })
+    }
   }
 }
 </script>

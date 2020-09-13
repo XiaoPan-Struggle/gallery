@@ -58,8 +58,7 @@ export default {
     }
   },
   onLoad(options) {
-    // this.id = options.id
-    this.id = '5d5f8e45e7bce75ae7fb8278'
+    this.id = options.id
     this.getList()
   },
   // 页面触底事件
