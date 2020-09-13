@@ -8,7 +8,7 @@
     </view>
     <view class="user_desc">
       <view class="user_name">{{imgDetail.user.name}}</view>
-      <view class="user_time">{{imgDetail.atime}}</view>
+      <view class="user_time">{{imgDetail.cnTime}}</view>
     </view>
   </view>
 
@@ -32,6 +32,8 @@
 
 <script>
 import moment from 'moment'
+// 设置时间格式语言为中文
+moment.locale("zh-cn")
 export default {
   data() {
     return {
@@ -46,6 +48,8 @@ export default {
     this.imgDetail = imgList[imgIndex]
     // 直接在路径上写入会报错，因为还没有拿到，路径会是undefined
     this.imgDetail.newThumb = this.imgDetail.thumb + this.imgDetail.rule.replace('$<Height>', 360)
+    // 时间数据格式处理
+    this.imgDetail.cnTime = moment(this.imgDetail.atime * 1000).fromNow()
     console.log(this.imgDetail)
   }
 }
