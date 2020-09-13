@@ -6,7 +6,9 @@
 
 <script>
 export default {
-
+  onLoad() {
+    console.log(getApp().globalData)
+  }
 }
 </script>
 

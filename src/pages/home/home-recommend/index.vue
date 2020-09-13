@@ -34,8 +34,10 @@
       <text> 热门 </text>
     </view>
     <view class="hots_content">
-      <view class="hot_item" v-for="item in verticals" :key="item.id">
-        <image mode="widthFix" :src="item.thumb"></image>
+      <view class="hot_item" v-for="(item,index) in verticals" :key="item.id">
+        <go-detail :list='verticals' :index='index'>
+          <image mode="widthFix" :src="item.thumb"></image>
+        </go-detail>
       </view>
     </view>
   </view>
