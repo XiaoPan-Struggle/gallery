@@ -63,8 +63,6 @@ export default {
       // 发送请求
       this.getList()
     }
-
-    console.log('meile')
   },
   methods: {
     getList() {
