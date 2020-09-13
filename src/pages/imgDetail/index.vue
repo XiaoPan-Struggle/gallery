@@ -17,6 +17,16 @@
     <image mode="widthFix" :src="imgDetail.newThumb"></image>
   </view>
 
+  <!-- 点赞，收藏 -->
+  <view class="user_rank">
+    <view class="rank">
+      <text class="iconfont icondianzan"> {{imgDetail.rank}} </text>
+    </view>
+    <view class="user_collect">
+      <text class="iconfont iconshoucang"> 收藏 </text>
+    </view>
+  </view>
+
 </view>
 </template>
 
@@ -41,6 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// 作者
 .user_info {
   display: flex;
   padding: 30rpx;
@@ -68,6 +79,27 @@ export default {
     .user_time {
       color: #d3d3d3;
     }
+  }
+}
+
+// 点赞
+.user_rank {
+  display: flex;
+  text-align: center;
+  border-bottom: 5rpx solid #f9f9f9;
+
+  .rank {
+    flex: 1;
+    padding: 20rpx 0;
+
+    text.icondianzan {}
+  }
+
+  .user_collect {
+    flex: 1;
+    padding: 20rpx 0;
+
+    text.iconshoucang {}
   }
 }
 </style>
