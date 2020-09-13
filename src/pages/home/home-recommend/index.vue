@@ -20,8 +20,10 @@
       <view class="monthes_title_more">更多 ></view>
     </view>
     <view class="monthes_content">
-      <view class="monthes_item" v-for="item in months.items" :key="item.id">
-        <image mode="aspectFill" :src="item.thumb + item.rule.replace('$<Height>', 360)"></image>
+      <view class="monthes_item" v-for="(item,index) in months.items" :key="item.id">
+        <go-detail :list='months.items' :index='index'>
+          <image mode="aspectFill" :src="item.thumb + item.rule.replace('$<Height>', 360)"></image>
+        </go-detail>
       </view>
     </view>
   </view>
@@ -42,7 +44,11 @@
 
 <script>
 import moment from 'moment'
+import goDetail from '@/components/goDetail'
 export default {
+  components: {
+    goDetail
+  },
   data() {
     return {
       // 推荐
