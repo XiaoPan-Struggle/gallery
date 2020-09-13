@@ -27,6 +27,24 @@
     </view>
   </view>
 
+  <!-- 图片专辑 -->
+  <view class="album_warp">
+    <view class="album_title">相关</view>
+    <view class="album_list">
+      <view class="album_item" v-for="item in album" :key="item.id">
+        <view class="album_cover">
+          <image :src="item.cover"></image>
+        </view>
+
+        <view class="album_info">
+          <view class="album_info_text">专辑</view>
+          <view class="album_name">{{item.name}}</view>
+          <text class="iconfont iconiconfontjiantou4"></text>
+        </view>
+      </view>
+    </view>
+  </view>
+
 </view>
 </template>
 
@@ -57,6 +75,7 @@ export default {
     // 时间数据格式处理
     this.imgDetail.cnTime = moment(this.imgDetail.atime * 1000).fromNow()
     // 获取评论数据
+    console.log(this.imgDetail.id)
     this.getComments(this.imgDetail.id)
   },
   methods: {
@@ -68,7 +87,7 @@ export default {
           this.album = result.res.album;
           this.comment = result.res.comment;
           this.hot = result.res.hot;
-          console.log(result)
+          console.log(result.res.album)
         })
     }
   }
@@ -121,6 +140,58 @@ export default {
   .user_collect {
     flex: 1;
     padding: 20rpx 0;
+  }
+}
+
+// 图片专辑
+.album_warp {
+  .album_title {
+    padding: 20rpx 20rpx;
+    font-size: 30rpx;
+    font-weight: 600;
+  }
+
+  .album_list {
+    .album_item {
+      display: flex;
+      padding: 10rpx 0;
+
+      .album_cover {
+        flex: 1;
+
+        image {
+          width: 180rpx;
+          height: 180rpx;
+        }
+      }
+
+      .album_info {
+        position: relative;
+        flex: 3;
+        padding-left: 20rpx;
+
+        .album_info_text {
+          width: 100rpx;
+          padding: 5rpx;
+          border-radius: 10rpx;
+          color: #fff;
+          background-color: $color;
+          text-align: center;
+        }
+
+        .album_name {
+          padding-left: 20rpx;
+        }
+
+        .iconfont {
+          position: absolute;
+          top: 50%;
+          right: 60rpx;
+          font-size: 30rpx;
+          transform: translateY(-50%);
+        }
+      }
+    }
   }
 }
 </style>
