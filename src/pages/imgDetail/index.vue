@@ -14,7 +14,7 @@
 
   <!-- 发布的大图 -->
   <view class="high_img">
-    <image mode="widthFix" :src="imgDetail.newThumb"></image>
+    <image mode="widthFix" :src="imgDetail.thumb"></image>
   </view>
 
   <!-- 点赞，收藏 -->
@@ -109,21 +109,31 @@ export default {
       // 最新评论
       comment: [],
       // 热门评论
-      hot: []
+      hot: [],
+      // 假数据
+      user: {
+        name: 'Kiko',
+        avatar: 'http://img0.adesk.com/download/5dee04f804220801b33bebf7'
+      }
     }
   },
   onLoad() {
+
     const {
       imgIndex,
       imgList
     } = getApp().globalData;
+
     this.imgDetail = imgList[imgIndex]
-    // 直接在路径上写入会报错，因为还没有拿到，路径会是undefined
-    this.imgDetail.newThumb = this.imgDetail.thumb + this.imgDetail.rule.replace('$<Height>', 360)
+    // 当该数据没有user时，就用假数据
+    if (!this.imgDetail.user) {
+      this.imgDetail.user = this.user
+      console.log(this.imgDetail)
+    }
+
     // 时间数据格式处理
     this.imgDetail.cnTime = moment(this.imgDetail.atime * 1000).fromNow()
     // 获取评论数据
-    console.log(this.imgDetail.id)
     this.getComments(this.imgDetail.id)
   },
   methods: {
