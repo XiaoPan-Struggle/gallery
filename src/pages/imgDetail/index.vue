@@ -46,10 +46,34 @@
   </view>
 
   <!-- 最热评论 -->
-  <view class="comment_warp">
+  <view class="comment hot">
     <view class="comment title">
       <text class="iconfont iconhot1"></text>
       <text>最热评论</text>
+    </view>
+    <view class="comment_list">
+      <view class="comment_item" v-for="item in hot" :key="item.id">
+        <view class="comment_cover">
+          <image :src="item.user.avatar"></image>
+        </view>
+
+        <view class="comment_info">
+          <view class="comment_name">{{item.user.name}}</view>
+          <view class="comment_time">{{item.atime}}</view>
+          <view class="comment_info_content">
+            <text>{{item.content}}</text>
+            <text class="iconfont icondianzan">{{item.user.follower}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最新评论 -->
+  <view class="comment new">
+    <view class="comment title">
+      <text class="iconfont iconpinglun"></text>
+      <text>最新评论</text>
     </view>
     <view class="comment_list">
       <view class="comment_item" v-for="item in comment" :key="item.id">
@@ -181,6 +205,7 @@ export default {
       padding: 10rpx 0;
 
       .album_cover {
+        padding-left: 10rpx;
         flex: 1;
 
         image {
@@ -220,11 +245,10 @@ export default {
 }
 
 // 热门评论
-.comment_warp {
-  border-top: 6rpx solid #f1f1f1;
-
+.comment {
   .comment.title {
     padding: 20rpx;
+    border-top: 15rpx solid #f1f1f1;
     color: #333;
     font-weight: 600;
 
@@ -238,7 +262,7 @@ export default {
   .comment_list {
     .comment_item {
       display: flex;
-      border-bottom: 6rpx solid #f1f1f1;
+      border-bottom: 15rpx solid #f1f1f1;
 
       .comment_cover {
         padding: 10rpx;
