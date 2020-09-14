@@ -45,6 +45,30 @@
     </view>
   </view>
 
+  <!-- 最热评论 -->
+  <view class="comment_warp">
+    <view class="comment title">
+      <text class="iconfont iconhot1"></text>
+      <text>最热评论</text>
+    </view>
+    <view class="comment_list">
+      <view class="comment_item" v-for="item in comment" :key="item.id">
+        <view class="comment_cover">
+          <image :src="item.user.avatar"></image>
+        </view>
+
+        <view class="comment_info">
+          <view class="comment_name">{{item.user.name}}</view>
+          <view class="comment_time">{{item.atime}}</view>
+          <view class="comment_info_content">
+            <text>{{item.content}}</text>
+            <text class="iconfont icondianzan">{{item.user.follower}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
 </view>
 </template>
 
@@ -87,7 +111,7 @@ export default {
           this.album = result.res.album;
           this.comment = result.res.comment;
           this.hot = result.res.hot;
-          console.log(result.res.album)
+          console.log(result.res)
         })
     }
   }
@@ -189,6 +213,71 @@ export default {
           right: 60rpx;
           font-size: 30rpx;
           transform: translateY(-50%);
+        }
+      }
+    }
+  }
+}
+
+// 热门评论
+.comment_warp {
+  border-top: 6rpx solid #f1f1f1;
+
+  .comment.title {
+    padding: 20rpx;
+    color: #333;
+    font-weight: 600;
+
+    text.iconfont {
+      margin-right: 20rpx;
+      font-size: 44rpx;
+      color: $color;
+    }
+  }
+
+  .comment_list {
+    .comment_item {
+      display: flex;
+      border-bottom: 6rpx solid #f1f1f1;
+
+      .comment_cover {
+        padding: 10rpx;
+
+        image {
+          width: 80rpx;
+          height: 80rpx;
+        }
+      }
+
+      .comment_info {
+        width: 80%;
+        padding: 10rpx 10rpx;
+
+        .comment_name {
+          color: #ccc;
+        }
+
+        .comment_time {
+          padding: 30rpx 0;
+          padding-top: 10rpx;
+          color: #868b8f;
+        }
+
+        .comment_info_content {
+          position: relative;
+          width: 100%;
+          font-size: 30rpx;
+          font-weight: 600;
+
+          text {
+            color: #000;
+          }
+
+          text.iconfont.icondianzan {
+            position: absolute;
+            top: 0;
+            right: 10rpx;
+          }
         }
       }
     }
