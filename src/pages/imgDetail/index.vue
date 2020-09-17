@@ -14,7 +14,9 @@
 
   <!-- 发布的大图 -->
   <view class="high_img">
-    <image mode="widthFix" :src="imgDetail.thumb"></image>
+    <swiper-action @swiperAction='handleSwiperAction'>
+      <image mode="widthFix" :src="imgDetail.thumb"></image>
+    </swiper-action>
   </view>
 
   <!-- 点赞，收藏 -->
@@ -98,6 +100,7 @@
 
 <script>
 import moment from 'moment'
+import swiperAction from '@/components/swiperAction'
 // 设置时间格式语言为中文
 moment.locale("zh-cn")
 export default {
@@ -110,6 +113,10 @@ export default {
       comment: [],
       // 热门评论
       hot: [],
+      // 当前渲染图片的 index
+      imgIndex: 0,
+      // 图片全对象
+      imgList: [],
       // 假数据
       user: {
         name: 'Kiko',
@@ -117,26 +124,39 @@ export default {
       }
     }
   },
+  components: {
+    swiperAction
+  },
   onLoad() {
-
     const {
       imgIndex,
       imgList
     } = getApp().globalData;
-
-    this.imgDetail = imgList[imgIndex]
+    this.imgIndex = imgIndex
+    // 页面赋值
+    this.imgDetail = imgList[this.imgIndex]
     // 当该数据没有user时，就用假数据
     if (!this.imgDetail.user) {
       this.imgDetail.user = this.user
-      console.log(this.imgDetail)
     }
-
     // 时间数据格式处理
     this.imgDetail.cnTime = moment(this.imgDetail.atime * 1000).fromNow()
     // 获取评论数据
     this.getComments(this.imgDetail.id)
+
   },
   methods: {
+    getData() {
+      const {
+        imgList
+      } = getApp().globalData;
+      // 页面赋值
+      this.imgDetail = imgList[this.imgIndex]
+      // 时间数据格式处理
+      this.imgDetail.cnTime = moment(this.imgDetail.atime * 1000).fromNow()
+      // 获取评论数据
+      this.getComments(this.imgDetail.id)
+    },
     getComments(id) {
       this.request({
           url: `http://157.122.54.189:9088/image/v2/wallpaper/wallpaper/${id}/comment`
@@ -147,6 +167,26 @@ export default {
           this.hot = result.res.hot;
           console.log(result.res)
         })
+    },
+    handleSwiperAction(e) {
+      const {
+        imgList
+      } = getApp().globalData;
+      console.log(imgList)
+      if (e.direction === 'left' && this.imgIndex < imgList.length - 1) {
+        console.log(123456)
+
+        this.imgIndex++;
+        this.getData();
+      } else if (e.direction === 'right' && this.imgIndex > 0) {
+        this.imgIndex--;
+        this.getData();
+      } else [
+        uni.showToast({
+          title: '没有数据了',
+          icon: 'none'
+        })
+      ]
     }
   }
 }

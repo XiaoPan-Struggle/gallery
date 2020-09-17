@@ -54,6 +54,9 @@ export default {
         // 轻微滑动 无效
         return
       }
+      this.$emit('swiperAction', {
+        direction
+      })
     },
   },
 }
