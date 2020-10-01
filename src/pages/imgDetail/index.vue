@@ -95,6 +95,11 @@
     </view>
   </view>
 
+  <!-- 下载 -->
+  <view class="download">
+    <view class="download_btn" @click="handleDownload">下载图片</view>
+  </view>
+
 </view>
 </template>
 
@@ -187,6 +192,27 @@ export default {
           icon: 'none'
         })
       ]
+    },
+    async handleDownload() {
+
+      await uni.showLoading({
+        title: '下载中'
+      })
+
+      const {
+        tempFilePath
+      } = await uni.downloadFile({
+        url: this.imgDetail.img
+      })
+
+      await uni.saveImageToPhotosAlbum({
+        filePath: tempFilePath
+      })
+
+      uni.hideLoading()
+      await uni.showToast({
+        title: '下载完成'
+      })
     }
   }
 }
@@ -355,6 +381,25 @@ export default {
         }
       }
     }
+  }
+}
+
+.download {
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .download_btn {
+    width: 96%;
+    height: 70%;
+    background-color: $color;
+    color: #fff;
+    font-size: 50rpx;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
