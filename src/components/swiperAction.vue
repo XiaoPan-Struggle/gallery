@@ -33,12 +33,14 @@ export default {
       this.startTime = Date.now()
       // 获取按下的当前坐标
       this.startX = event.changedTouches[0].clientX
+      this.startY = event.changedTouches[0].clientY
     },
     handleTouchEnd(event) {
       // 获取离开的当前时间
       const endTime = Date.now()
       // 获取离开的当前坐标
       const endX = event.changedTouches[0].clientX
+      const endY = event.changedTouches[0].clientY
       // 判断按下的时长
       if (endTime - this.startTime > 2000) {
         // 时间太长就不执行
@@ -47,7 +49,7 @@ export default {
       // 声明一个变量 存储 方向
       let direction = ''
       // 结束坐标 - 开始坐标  Math.abs(x) 返回x 的绝对值
-      if (Math.abs(endX - this.startX) > 10) {
+      if (Math.abs(endX - this.startX) > 10 && Math.abs(endY - this.startY) < 10) {
         // 返回方向名词
         direction = endX - this.startX > 0 ? 'right' : 'left'
       } else {
