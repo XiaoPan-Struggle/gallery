@@ -7,7 +7,7 @@
       </view>
       <view class="iconfont iconsearch"></view>
     </view>
-    <scroll-view scroll-y class="category_tabs_content" v-if="isshow">
+    <scroll-view enable-flex scroll-y class="category_tabs_content" v-if="isshow">
       <view class="category_item" v-for="item in vertical" :key="item.id">
         <image :src="item.thumb" mode="widthFix"></image>
       </view>
