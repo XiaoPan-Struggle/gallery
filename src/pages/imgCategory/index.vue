@@ -7,7 +7,7 @@
       </view>
       <view class="iconfont iconsearch"></view>
     </view>
-    <scroll-view enable-flex scroll-y class="category_tabs_content" v-if="isshow">
+    <scroll-view enable-flex scroll-y @scrolltolower="handleScrolltolower" class="category_tabs_content" v-if="isshow">
       <view class="category_item" v-for="item in vertical" :key="item.id">
         <image :src="item.thumb" mode="widthFix"></image>
       </view>
@@ -48,6 +48,8 @@ export default {
       // 页面初始化数据
       vertical: [],
       isshow: true,
+      // 有无下一页
+      hasMore: true,
     }
   },
   onLoad(options) {
@@ -55,24 +57,47 @@ export default {
     this.getList()
   },
   methods: {
+    // 点击标题
     onClickItem(e) {
       if (this.current !== e.currentIndex) {
         this.current = e.currentIndex
+      } else {
+        return
       }
       this.params.order = this.items[e.currentIndex].order
+      this.params.skip = 0
+      this.vertical = []
       this.getList()
     },
+    // 发送请求
     getList() {
       this.request({
         url: `http://157.122.54.189:9088/image/v1/vertical/category/${this.id}/vertical`,
         data: this.params,
       }).then((res) => {
-        this.vertical = res.res.vertical
-        if (this.vertical.length == 0) {
-          return (this.isshow = false)
+        console.log(res.res.vertical)
+        if (this.vertical.length === 0) {
+          this.isshow = false
         }
+        if (res.res.vertical.length === 0) {
+          this.hasMore = false
+          uni.showToast({
+            title: '极限啦!',
+            icon: 'none',
+          })
+          return
+        }
+        this.vertical = [...this.vertical, ...res.res.vertical]
         this.isshow = true
+        this.hasMore = true
       })
+    },
+    // 滚动分页
+    handleScrolltolower() {
+      if (this.hasMore) {
+        this.params.skip += this.params.limit
+        this.getList()
+      }
     },
   },
 }
