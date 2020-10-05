@@ -7,11 +7,11 @@
       </view>
       <view class="iconfont iconsearch"></view>
     </view>
-    <view class="category_tabs_content" v-if="isshow">
+    <scroll-view scroll-y class="category_tabs_content" v-if="isshow">
       <view class="category_item" v-for="item in vertical" :key="item.id">
         <image :src="item.thumb" mode="widthFix"></image>
       </view>
-    </view>
+    </scroll-view>
     <view class="category_not_data" v-else>
       Not Data
     </view>
@@ -100,6 +100,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     padding-top: 5rpx;
+    height: calc(100vh - 72rpx);
 
     .category_item {
       width: 50%;
