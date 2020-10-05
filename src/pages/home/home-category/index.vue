@@ -1,9 +1,9 @@
 <template>
 <view class="category_list">
-  <view class="category_item" v-for="item in category" :key="item.id">
+  <navigator :url="`/pages/imgCategory/index?id=${item.id}`" class="category_item" v-for="item in category" :key="item.id">
     <image mode="aspectFill" :src="item.cover"></image>
     <view class="category name">{{ item.name }}</view>
-  </view>
+  </navigator>
 </view>
 </template>
 
