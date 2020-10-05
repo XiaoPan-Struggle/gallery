@@ -95,5 +95,28 @@ export default {
       right: 5%;
     }
   }
+
+  .category_tabs_content {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5rpx;
+
+    .category_item {
+      width: 50%;
+      border: 5rpx solid #fff;
+
+      image {}
+    }
+  }
+
+  .category_not_data {
+    height: 100vh;
+    padding-bottom: 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 60rpx;
+  }
 }
 </style>
