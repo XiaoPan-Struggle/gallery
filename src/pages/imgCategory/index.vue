@@ -68,6 +68,10 @@ export default {
         data: this.params,
       }).then((res) => {
         this.vertical = res.res.vertical
+        if (this.vertical.length == 0) {
+          return (this.isshow = false)
+        }
+        this.isshow = true
       })
     },
   },
